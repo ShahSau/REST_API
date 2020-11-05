@@ -17,7 +17,9 @@ router.get("/person/:name", (req,res)=>{
     res.send(`you have requested a person ${req.params.name}`)
 });
 
-
+router.get("/error", (req,res)=>{
+    throw new Error("This is a forced error.")
+});
 
 
 

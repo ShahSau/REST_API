@@ -1,7 +1,12 @@
 const express = require("express");
-
-const path = require("path");
 const app = express();
+const path = require("path");
+const bodyParser = require("body-parser");
+const customerRoute = require("./routes/customer");
+
+
+app.use(bodyParser.json());
+
 
 //Creating and using route
 const personRoute = require("./routes/person");
@@ -11,7 +16,9 @@ const logger = (req,res,next)=>{
     next();
 };
 app.use(logger);
+
 app.use(personRoute);
+app.use(customerRoute);
 
 //Static folder
 app.use(express.static("public"));
@@ -24,10 +31,10 @@ const err4 = (req,res,next)=>{
 };
 app.use(err4);
 
-//505 handler
+//500 handler
 app.use((err,req,res,next)=>{
     console.log(err);
-    res.sendFile(path.join(__dirname, "../public/504.html"));
+    res.sendFile(path.join(__dirname, "../public/500.html"));
 
 });
 
